@@ -7,7 +7,7 @@ class Notes extends Component {
         super(props);
         this.state = {
             notes: [], // array of note objects in format {id, text}
-            nextId: 0,
+            nextId: 1,
             updateNoteId: null,
         };
     }
@@ -57,6 +57,7 @@ class Notes extends Component {
                 updateNoteId: null,
             });
         } else {
+            // Updating a note to have no text effectively deletes it.
             this.deleteNote(this.state.updateNoteId);
         }
     };
@@ -80,7 +81,7 @@ class Notes extends Component {
         return (
             <div className="overlay">
                 <NoteEditor
-                    title={"Update your selected note"}
+                    title={`Update note # ${updateNote.id}`}
                     saveButtonText={"Update Note"}
                     onNoteSave={this.updateNote}
                     initialNote={updateNote.text}

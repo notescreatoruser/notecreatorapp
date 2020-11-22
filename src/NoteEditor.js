@@ -11,12 +11,12 @@ class NoteEditor extends Component {
     }
 
     saveNote = (event) => {
-        if (!event || !event.target) {
+        if (!event) {
             throw new Error("addNote: illegal inputs");
         }
         event.preventDefault();
-        // I assume here add note succeeds, for simplicity. 
         if (typeof this.props.onNoteSave === 'function') {
+            // Assume here saving a note always succeeds, for simplicity. 
             this.props.onNoteSave(this.state.note);
         }
         this.setState({
@@ -47,14 +47,14 @@ class NoteEditor extends Component {
                     rows="4"
                     cols="80"
                     placeholder={this.props.placeholder}
-                    // autoFocus does not move the cursor to the end of a pre-existing text (scenario of note's update)
+                    // autoFocus does not move the cursor to the end of a pre-existing text (in a scenario of note's update)
                     // TODO: move the cursor to the end programmatically
                 />
                 <button
                     type="button"
                     className="note-add"
                     onClick={this.saveNote}
-                    disabled={!!this.props.disableOnEmpty && !this.state.note.length}
+                    disabled={this.props.disableOnEmpty && !this.state.note.length}
                 > 
                     {this.props.saveButtonText || 'Save'}
                 </button>

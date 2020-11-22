@@ -1,12 +1,12 @@
 .notes-container {
-    background-color: whitesmoke;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
     margin: 10px auto;
     padding: 10px auto;
-    min-width: 1000px;
+    width: 1000px;
+    background-color: whitesmoke;
+    border-radius: 10px;
 }
 
 .note-text {
