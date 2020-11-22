@@ -78,7 +78,7 @@ class Notes extends Component {
             return;
         }
         return (
-            <div className="modal">
+            <div className="overlay">
                 <NoteEditor 
                     saveButtonText={"Update note"}
                     onNoteSave={this.updateNote}
