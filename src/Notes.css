@@ -57,9 +57,7 @@
     left: 0;
     min-width: 100%;
     min-height: 100%;
-    z-index: 5;
-    background-color: gray;
+    background-color: lightgray;
     display: flex;
     justify-content: center;
-    align-items: center;
 }

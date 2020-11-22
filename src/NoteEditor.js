@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './NoteEditor.css';
 
 class NoteEditor extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            note: this.props.initialNote || '',
+            note: props.initialNote || '',
         };
     }
 
@@ -15,7 +16,9 @@ class NoteEditor extends Component {
         }
         event.preventDefault();
         // I assume here add note succeeds, for simplicity. 
-        this.props.onNoteSave(this.state.note);
+        if (typeof this.props.onNoteSave === 'function') {
+            this.props.onNoteSave(this.state.note);
+        }
         this.setState({
             note: '',
         });
@@ -34,6 +37,9 @@ class NoteEditor extends Component {
     render() {
         return (
             <div className="note-editor-container">
+                <div className="note-editor-title">
+                    { this.props.title }
+                </div>
                 <textarea 
                     className="note-input"
                     value={this.state.note}
@@ -41,7 +47,7 @@ class NoteEditor extends Component {
                     rows="4"
                     cols="80"
                     placeholder={this.props.placeholder}
-                    // autoFocus does not move the cursor to the end of pre-existing text
+                    // autoFocus does not move the cursor to the end of a pre-existing text (scenario of note's update)
                     // TODO: move the cursor to the end programmatically
                 />
                 <button
@@ -50,7 +56,7 @@ class NoteEditor extends Component {
                     onClick={this.saveNote}
                     disabled={!!this.props.disableOnEmpty && !this.state.note.length}
                 > 
-                    {this.props.saveButtonText}
+                    {this.props.saveButtonText || 'Save'}
                 </button>
             </div>
         );
@@ -58,3 +64,11 @@ class NoteEditor extends Component {
 }
 
 export default NoteEditor;
+
+NoteEditor.propTypes = {
+    title: PropTypes.string,
+    onNoteSave: PropTypes.func.isRequired,
+    saveButtonText: PropTypes.string, 
+    disableOnEmpty: PropTypes.bool,
+    initialNote: PropTypes.string,
+};

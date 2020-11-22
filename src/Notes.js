@@ -79,8 +79,9 @@ class Notes extends Component {
         }
         return (
             <div className="overlay">
-                <NoteEditor 
-                    saveButtonText={"Update note"}
+                <NoteEditor
+                    title={"Update your selected note"}
+                    saveButtonText={"Update Note"}
                     onNoteSave={this.updateNote}
                     initialNote={updateNote.text}
                     disableOnEmpty={false}
@@ -93,7 +94,8 @@ class Notes extends Component {
         return (
             <>
                 <NoteEditor 
-                    saveButtonText={"Create new Note"}
+                    title={"Create a new note"}
+                    saveButtonText={"Create New Note"}
                     onNoteSave={this.addNote}
                     initialNote=""
                     placeholder={"Start your new note here ..."}
@@ -141,11 +143,10 @@ class Notes extends Component {
         return (
             <div className="notes-container">
             {
-                this.state.updateNoteId !== null && this.renderNoteUpdate()
+                this.state.updateNoteId === null 
+                    ? this.renderNoteCreate() 
+                    : this.renderNoteUpdate()
             } 
-            {
-                this.renderNoteCreate()
-            }
             </div>
         );
     }

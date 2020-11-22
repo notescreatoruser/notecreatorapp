@@ -6,20 +6,30 @@
 
 }
 
+.note-editor-title {
+    margin: 20px auto;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.note-input {
+    resize: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+
 .note-add {
     margin: 20px auto 0 auto;
     padding: 10px;
     color: black;
     border: 1px solid black;
     cursor: pointer;
+    border-radius: 3px;
 }
 
 .note-add:disabled {
     color: lightgray;
     border: 1px solid lightgray;
     cursor: default;
-}
-
-.note-input {
-    resize: none;
 }
