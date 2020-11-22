@@ -15,7 +15,12 @@ Installs project dependencies
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
+## Production deployment 
+
+https://notescreatordemo.firebaseapp.com/
+
 ## What you can do
 
 1. Create new notes
 1. Update existing notes
+
