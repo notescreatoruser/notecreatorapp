@@ -1,0 +1,25 @@
+.note-editor-container {
+    display: flex;
+    flex-direction: column;
+    margin: 20px auto;
+    color: black;
+
+}
+
+.note-add {
+    margin: 20px auto 0 auto;
+    padding: 10px;
+    color: black;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.note-add:disabled {
+    color: lightgray;
+    border: 1px solid lightgray;
+    cursor: default;
+}
+
+.note-input {
+    resize: none;
+}
