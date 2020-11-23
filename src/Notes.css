@@ -1,9 +1,11 @@
-.notes-container {
+.notes-app-container {
+    position: relative;
+    top: 0;
+    left: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 10px auto;
-    padding: 10px auto;
+    margin: 20px auto;
     width: 1000px;
     background-color: whitesmoke;
     border-radius: 10px;
@@ -13,12 +15,16 @@
     display: inline-block;
 }
 
+.notes-list-title {
+    margin-top: 20px;
+}
+
 .notes-list {
     width: 100%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin-bottom: 20px;
+    margin: 20px auto;
     overflow-x: auto;
 }
 

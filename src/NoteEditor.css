@@ -6,7 +6,7 @@
 }
 
 .note-editor-title {
-    margin: 20px auto;
+    margin: 0 auto;
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -15,6 +15,7 @@
 .note-input {
     resize: none;
     border-radius: 5px;
+    margin: 20px auto 0 auto;
     padding: 10px;
 }
 

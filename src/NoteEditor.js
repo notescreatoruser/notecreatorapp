@@ -8,6 +8,7 @@ class NoteEditor extends Component {
         this.state = {
             note: props.initialNote || '',
         };
+        this.noteTextareaRef = React.createRef();
     }
 
     saveNote = (event) => {
@@ -34,11 +35,19 @@ class NoteEditor extends Component {
         });
     }
 
+    componentDidMount() {
+        // TODO: moving the cursor to the end programmatically does not work. 
+        // if (this.noteTextareaRef && this.noteTextareaRef.current) {
+        //     this.noteTextareaRef.current.focus();
+        //     this.noteTextareaRef.current.value = this.state.note;
+        // }
+    }
+
     render() {
         return (
             <div className="note-editor-container">
                 <div className="note-editor-title">
-                    { this.props.title }
+                    {this.props.title}
                 </div>
                 <textarea 
                     className="note-input"
@@ -47,9 +56,10 @@ class NoteEditor extends Component {
                     rows="4"
                     cols="80"
                     placeholder={this.props.placeholder}
+                    ref={this.noteTextareaRef}
                     // autoFocus does not move the cursor to the end of a pre-existing text (in a scenario of note's update)
-                    // TODO: move the cursor to the end programmatically
-                />
+                >
+                </textarea>
                 <button
                     type="button"
                     className="note-add"

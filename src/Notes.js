@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import NoteEditor from './NoteEditor';
 import './Notes.css';
+import './index.css';
 
 class Notes extends Component {
     constructor(props) {
@@ -104,37 +105,41 @@ class Notes extends Component {
                 />
                 {
                     !!this.state.notes.length &&
-                    <div className="notes-list">
-                    {
-                        this.state.notes.map((note) => {
-                            return (
-                                <div key={note.id} className="note-container">
-                                    <div 
-                                        className="note-text"
-                                    >
-                                        {note.text}
-                                    </div>
-                                    <div className="note-buttons">
-                                        <button
-                                            type="button"
-                                            onClick={() => this.setUpdateNote(note.id)}
-                                            className="note-button-edit"
+                    <>
+                        <div className="horizontal-seperator"/>
+                        <div className="notes-list-title">Your saved notes</div>
+                        <div className="notes-list">
+                        {
+                            this.state.notes.map((note) => {
+                                return (
+                                    <div key={note.id} className="note-container">
+                                        <div 
+                                            className="note-text"
                                         >
-                                            Edit 
-                                        </button>
-                                        <button
-                                            type="button"
-                                            onClick={() => this.deleteNote(note.id)}
-                                            className="note-button-delete"
-                                        >
-                                            Delete
-                                        </button>
+                                            {note.text}
+                                        </div>
+                                        <div className="note-buttons">
+                                            <button
+                                                type="button"
+                                                onClick={() => this.setUpdateNote(note.id)}
+                                                className="note-button-edit"
+                                            >
+                                                Edit 
+                                            </button>
+                                            <button
+                                                type="button"
+                                                onClick={() => this.deleteNote(note.id)}
+                                                className="note-button-delete"
+                                            >
+                                                Delete
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                            );
-                        })
-                    }
-                    </div>
+                                );
+                            })
+                        }
+                        </div>
+                    </>
                 }
             </>
         );
@@ -142,7 +147,7 @@ class Notes extends Component {
 
     render() {
         return (
-            <div className="notes-container">
+            <div className="notes-app-container">
             {
                 this.state.updateNoteId === null 
                     ? this.renderNoteCreate() 

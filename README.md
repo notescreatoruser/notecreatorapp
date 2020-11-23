@@ -21,7 +21,7 @@ Creates a production build
 
 ### `firebase deploy`
 
-Deploys latest created production build to production
+Deploys latest created production build to the Firebase hosting service (but depends on pre-requisite setup and priveleges)
 
 ### `npm run release`
 
@@ -35,4 +35,3 @@ https://notescreatordemo.firebaseapp.com/
 
 1. Create new notes
 1. Update existing notes
-

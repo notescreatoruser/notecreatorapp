@@ -11,3 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.horizontal-seperator {
+  border-top: 1px solid darkgray;
+  min-width: 98%;
+  height: 0px;
+  margin: 10px auto;
+}
