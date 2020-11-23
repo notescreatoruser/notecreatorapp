@@ -11,6 +11,7 @@ class Notes extends Component {
             nextId: 1,
             updateNoteId: null,
         };
+        this.noteEditorRef = React.createRef();
     }
 
     addNote = (text) => {
@@ -26,6 +27,7 @@ class Notes extends Component {
             notes,
             nextId: previous.nextId + 1,
         }));
+        this.setFocusToNoteEditor();
     };
 
     setUpdateNote = (noteId) => {
@@ -71,7 +73,14 @@ class Notes extends Component {
             updateNoteId: null,
             notes: previous.notes.filter((note) => note.id !== noteId),
         }));
+        this.setFocusToNoteEditor();
     };
+
+    setFocusToNoteEditor = () => {
+        if (this.noteEditorRef && this.noteEditorRef.current) {
+            this.noteEditorRef.current.setFocus();
+        }
+    }
 
     renderNoteUpdate = () => {
         const updateNote = this.state.notes.find((note) => note.id === this.state.updateNoteId);
@@ -102,6 +111,7 @@ class Notes extends Component {
                     initialNote=""
                     placeholder={"Start your new note here ..."}
                     disableOnEmpty={true}
+                    ref={this.noteEditorRef}
                 />
                 {
                     !!this.state.notes.length &&

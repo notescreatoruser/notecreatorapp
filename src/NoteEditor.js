@@ -35,13 +35,17 @@ class NoteEditor extends Component {
         });
     }
 
-    componentDidMount() {
-        // Move the cursor to the end of any pre-existing text.
+    setFocus = () => {
         const element = this.noteTextareaRef;
         if (element && element.current) {
             element.current.focus();
+            // Move the cursor to the end of any pre-existing text.
             element.current.setSelectionRange(element.current.value.length, element.current.value.length);
         }
+    }
+
+    componentDidMount() {
+        this.setFocus();
     }
 
     render() {
