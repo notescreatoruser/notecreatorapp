@@ -1,6 +1,7 @@
 # Getting started with Note Creator App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Tested on Mac OS Chrome version 87.0.
 
 ## Available Scripts
 
