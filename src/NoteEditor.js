@@ -13,7 +13,7 @@ class NoteEditor extends Component {
 
     saveNote = (event) => {
         if (!event) {
-            throw new Error("addNote: illegal inputs");
+            throw new Error("saveNote: illegal inputs");
         }
         event.preventDefault();
         if (typeof this.props.onNoteSave === 'function') {
@@ -27,7 +27,7 @@ class NoteEditor extends Component {
 
     onNoteChange = (event) => {
         if (!event || !event.target) {
-            throw new Error("onNoteChage: illegal inputs");
+            throw new Error("onNoteChange: illegal inputs");
         }
         event.preventDefault();
         this.setState({
@@ -36,11 +36,12 @@ class NoteEditor extends Component {
     }
 
     componentDidMount() {
-        // TODO: moving the cursor to the end programmatically does not work. 
-        // if (this.noteTextareaRef && this.noteTextareaRef.current) {
-        //     this.noteTextareaRef.current.focus();
-        //     this.noteTextareaRef.current.value = this.state.note;
-        // }
+        // Move the cursor to the end of any pre-existing text.
+        const element = this.noteTextareaRef;
+        if (element && element.current) {
+            element.current.focus();
+            element.current.setSelectionRange(element.current.value.length, element.current.value.length);
+        }
     }
 
     render() {
@@ -57,7 +58,7 @@ class NoteEditor extends Component {
                     cols="80"
                     placeholder={this.props.placeholder}
                     ref={this.noteTextareaRef}
-                    // autoFocus does not move the cursor to the end of a pre-existing text (in a scenario of note's update)
+                    // "autoFocus" does not move the cursor to the end of a pre-existing text (in a scenario of note's update)
                 >
                 </textarea>
                 <button

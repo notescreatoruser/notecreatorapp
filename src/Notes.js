@@ -15,7 +15,7 @@ class Notes extends Component {
 
     addNote = (text) => {
         if (typeof text !== 'string' || !text) {
-            throw new Error('updateNote: input errors');
+            throw new Error('addNote: input errors');
         }
         const notes = [...this.state.notes];
         notes.push({
