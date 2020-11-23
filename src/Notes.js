@@ -35,12 +35,14 @@ class Notes extends Component {
             throw new Error('setUpdateNote: input errors');
         }
         const notes = [...this.state.notes];
-        const updatedNote = notes.find((note) => note.id === noteId);
-        if (updatedNote) {
-            this.setState({
-                updateNoteId: noteId,
-            });
+        const updateNote = notes.find((note) => note.id === noteId);
+        if (!updateNote) {
+            console.error('setUpdateNote invoked but could not find note to edit');
+            return;
         }
+        this.setState({
+            updateNoteId: noteId,
+        });
     }
 
     updateNote = (text) => {
@@ -85,7 +87,7 @@ class Notes extends Component {
     renderNoteUpdate = () => {
         const updateNote = this.state.notes.find((note) => note.id === this.state.updateNoteId);
         if (!updateNote) {
-            console.error('renderNoteEditorInModal invoked but could not find note to edit');
+            console.error('renderNoteUpdate invoked but could not find note to edit');
             return;
         }
         return (
