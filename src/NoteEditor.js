@@ -33,7 +33,6 @@ class NoteEditor extends Component {
         if (!event) {
             throw new Error("applyEvent: illegal input");
         }
-        console.log('applyEvent on event = ', event);
         if (event.keyCode >= 33 && event.keyCode <= 126) {
             const note = this.state.note;
             const newNote = note.substring(0, event.location) + note.substring(event.location + 1);
@@ -42,7 +41,7 @@ class NoteEditor extends Component {
         }
         if (event.keyCode === 8) {
             const note = this.state.note;
-            const newNote = note.substring(0, event.location) + String.fromCharCode(event.keyCode) + note.substring(event.location);
+            const newNote = note.substring(0, event.location) + event.key + note.substring(event.location);
             this.setState({note: newNote});
             return;
         }
@@ -52,7 +51,6 @@ class NoteEditor extends Component {
         if (!event) {
             throw new Error("applyEvent: illegal input");
         }
-        console.log('applyEvent on event = ', event);
         if (event.keyCode >= 33 && event.keyCode <= 126) {
             const note = this.state.note;
             const newNote = note.substring(0, event.location) + event.key + note.substring(event.location + 1);
@@ -61,7 +59,7 @@ class NoteEditor extends Component {
         }
         if (event.keyCode === 8) {
             const note = this.state.note;
-            const newNote = note.substring(0, event.location) + String.fromCharCode(event.keyCode) + note.substring(event.location);
+            const newNote = note.substring(0, event.location) + note.substring(event.location + 1);
             this.setState({note: newNote});
             return;
         }
@@ -72,14 +70,12 @@ class NoteEditor extends Component {
             throw new Error("onUndo: illegal input");
         }
         event.preventDefault();
-        console.log('state.events = ', this.state.events);
         if (this.state.events.list.length) {
             const undoIndex = this.state.events.undoIndex;
             this.applyUndoEvent(this.state.events.list[undoIndex]);
             this.setState((previous) => {
                 const newState = {...previous};
                 newState.events.undoIndex = undoIndex - 1;
-                console.log('newState.events = ', newState.events);
                 return newState;
             });
         }
@@ -111,41 +107,40 @@ class NoteEditor extends Component {
         });
     };
 
+    logUndoStack = () => {
+        console.log('undoStack = ', this.state.events);
+    };
+
     onNoteKeyDown = (event) => {
         if (!event || !event.target) {
             throw new Error("onNoteKeyDown: illegal inputs");
         }
-        console.log('onNoteKeyDown: ', event);
-        // console.log('onNoteKeyDown location: ', this.noteTextareaRef.current.selectionStart, ' ', this.noteTextareaRef.current.selectionEnd);
         const location = this.noteTextareaRef.current.selectionStart === this.noteTextareaRef.current.selectionEnd ? this.noteTextareaRef.current.selectionStart : null;
 
         if ((event.keyCode >= 33 && event.keyCode <= 126) || event.keyCode === 8) {
             const keyEvent = {
                 keyCode: event.keyCode,
-                key: event.key,
-                location: location,
+                key: (event.keyCode >= 33 && event.keyCode <= 126) ? event.key : this.state.note[this.noteTextareaRef.current.selectionStart-1],
+                location: (event.keyCode >= 33 && event.keyCode <= 126) ? location : location - 1,
             };
             this.setState((previous) => {
-                const newList = [...previous.events.list];
-                let undoIndex = newList.length - 1;
-                newList.push(keyEvent);
-                undoIndex++;
+                const currentUndoIndex = previous.events.undoIndex;
+                const list = [...previous.events.list.slice(0, currentUndoIndex + 1), keyEvent];
+                const undoIndex = list.length - 1;
                 return {
                     ...previous,
                     events: {
-                        list: newList, 
+                        list, 
                         undoIndex,
                     },
                 };
-            });
+            }, this.logUndoStack);
         } else {
             this.setState((previous) => {
-                const newList = [...previous.events.list];
-                newList.slice(0, previous.events.undoIndex + 1);
                 return {
                     ...previous, 
                     events: {
-                        list: newList,
+                        list: previous.events.slice(0, previous.events.undoIndex + 1),
                         undoIndex: previous.events.undoIndex,
                     },
                 };
@@ -153,7 +148,7 @@ class NoteEditor extends Component {
         } 
     };
 
-    setFocus = () => {
+setFocus = () => {
         const element = this.noteTextareaRef;
         if (element && element.current) {
             element.current.focus();
