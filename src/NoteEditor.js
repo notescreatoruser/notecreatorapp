@@ -26,6 +26,10 @@ class NoteEditor extends Component {
         }
         this.setState({
             note: '',
+            events: {
+                list: [], 
+                undoIndex: -1,
+            },
         });
     };
 
@@ -119,7 +123,20 @@ class NoteEditor extends Component {
         if (!event || !event.target) {
             throw new Error("onNoteKeyDown: illegal inputs");
         }
+        // Currently support only one character editing: 
         const location = this.noteTextareaRef.current.selectionStart === this.noteTextareaRef.current.selectionEnd ? this.noteTextareaRef.current.selectionStart : null;
+        if (!location) {
+            this.setState((previous) => {
+                return {
+                    ...previous, // Technically, not needed. 
+                    events: {
+                        list: [],
+                        undoIndex: -1,
+                    },
+                };
+            });
+            return;
+        } 
 
         if ((event.keyCode >= 33 && event.keyCode <= 126) || event.keyCode === 8) {
             const keyEvent = {
@@ -132,7 +149,7 @@ class NoteEditor extends Component {
                 const list = [...previous.events.list.slice(0, currentUndoIndex + 1), keyEvent];
                 const undoIndex = list.length - 1;
                 return {
-                    ...previous,
+                    ...previous, // Technically, not needed. 
                     events: {
                         list, 
                         undoIndex,
@@ -142,7 +159,7 @@ class NoteEditor extends Component {
         } else {
             this.setState((previous) => {
                 return {
-                    ...previous, 
+                    ...previous, // Technically, not needed. 
                     events: {
                         list: previous.events.slice(0, previous.events.undoIndex + 1),
                         undoIndex: previous.events.undoIndex,
@@ -152,7 +169,7 @@ class NoteEditor extends Component {
         } 
     };
 
-setFocus = () => {
+    setFocus = () => {
         const element = this.noteTextareaRef;
         if (element && element.current) {
             element.current.focus();
@@ -184,15 +201,17 @@ setFocus = () => {
                         onKeyDown={this.onNoteKeyDown}
                     />
                     <div className="note-editor-buttons">
-                        <button className="note-editor-button-undo" 
+                        <button
                             type="button"
+                            className="note-editor-button-undo" 
                             onClick={this.onUndo}
                             disabled={this.state.events.undoIndex === -1}
                         >
                             Undo
                         </button>
-                        <button className="note-editor-button-redo" 
+                        <button 
                             type="button"
+                            className="note-editor-button-redo" 
                             onClick={this.onRedo}
                             disabled={this.state.events.undoIndex === this.state.events.list.length - 1}
                         >
@@ -208,7 +227,6 @@ setFocus = () => {
                         </button>
                     </div>
                 </div>
-
             </div>
         );
     }

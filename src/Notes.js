@@ -108,10 +108,9 @@ class Notes extends Component {
             <>
                 <NoteEditor 
                     title={"Create a new note"}
-                    saveButtonText={"Create New Note"}
                     onNoteSave={this.addNote}
                     initialNote=""
-                    placeholder={"Start your new note here ..."}
+                    placeholder={"Enter your new note here ..."}
                     disableOnEmpty={true}
                     ref={this.noteEditorRef}
                 />

@@ -40,13 +40,13 @@
     margin: 20px auto 0 auto;
   }
 
-  .note-editor-buttons {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      margin-left: 20px;
-  }
+.note-editor-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 5px;
+}
 
-  .note-editor-button > button {
-      margin: 10px auto;
-  }
+.note-editor-buttons button {
+    padding: 3px 20px;
+}

@@ -36,3 +36,8 @@ https://notescreatordemo.firebaseapp.com/
 
 1. Create new notes
 1. Update existing notes
+1. Editor supports undo and redo functionality - on single character editing. 
+
+## TODO
+
+1. Add auto-focus / selection of text after undo and redo.
