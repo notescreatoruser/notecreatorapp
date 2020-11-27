@@ -53,7 +53,7 @@ class NoteEditor extends Component {
         }
         if (event.keyCode >= 33 && event.keyCode <= 126) {
             const note = this.state.note;
-            const newNote = note.substring(0, event.location) + event.key + note.substring(event.location + 1);
+            const newNote = note.substring(0, event.location) + event.key + note.substring(event.location);
             this.setState({note: newNote});
             return;
         }
@@ -63,6 +63,10 @@ class NoteEditor extends Component {
             this.setState({note: newNote});
             return;
         }
+    };
+
+    logUndoEvents = () => {
+        console.log('this.state.events = ', this.state.events);
     };
 
     onUndo = (event) => {
@@ -77,9 +81,9 @@ class NoteEditor extends Component {
                 const newState = {...previous};
                 newState.events.undoIndex = undoIndex - 1;
                 return newState;
-            });
+            }, this.logUndoEvents);
         }
-    }
+    };
 
     onRedo = (event) => {
         if (!event || !event.target) {
@@ -93,9 +97,9 @@ class NoteEditor extends Component {
                 const newState = {...previous};
                 newState.events.undoIndex = redoIndex;
                 return newState;
-            });
+            }, this.logUndoEvents);
         }
-    }
+    };
 
     onNoteChange = (event) => {
         if (!event || !event.target) {
